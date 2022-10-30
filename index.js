@@ -2,11 +2,23 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
 const cors = require('cors');
+const { connectToServer } = require('./utils/db/dbConnect');
 const tours = require('./routes/v1/tours.route');
 
-
+require('dotenv').config();
 app.use(cors());
 app.use(express.json());
+
+
+// Db connection
+
+connectToServer((err)=> {
+    if(!err){
+        console.log("DB Connected")
+    } else {
+        console.log(err)
+    }
+})
 
 // Tour Routes
 
